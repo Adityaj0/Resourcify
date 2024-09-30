@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resourcify Waitlist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            color: #fff;
+            height: 100%;
+        }
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+            background: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 50%),
+                radial-gradient(circle at center, rgba(51, 66, 90, 0.4) 0%, rgba(40, 224, 3, 0) 100%);
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(20, 1fr);
+            grid-template-rows: repeat(20, 1fr);
+            opacity: 0.1;
+        }
+        .background-box {
+            border: 1px solid #333;
+        }
+        .logo {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+        .content {
+            z-index: 10;
+            width: 100%;
+            max-width: 28rem;
+            text-align: center;
+            padding-top: 1rem;
+        }
+        .waitlist-label {
+            font-size: 0.875rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #a0aec0;
+            margin-bottom: 0.25rem;
+        }
+        .title {
+            font-size: 3.75rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to bottom, white, #484d53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .description {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            color: #d1d5db;
+            line-height: 1.5;
+        }
+        .form {
+            display: flex;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        .email-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border-top-left-radius: 9999px;
+            border-bottom-left-radius: 9999px;
+            background-color: rgba(30, 41, 59, 0.8);
+            color: white;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .email-input::placeholder {
+            color: #6b7280;
+        }
+        .email-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #6b7280;
+        }
+        .submit-button {
+            padding: 0.75rem 1.5rem;
+            border-top-right-radius: 9999px;
+            border-bottom-right-radius: 9999px;
+            background-color: white;
+            color: black;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        .submit-button:hover {
+            background-color: #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="background"></div>
+        <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="content">
+            <h2 class="waitlist-label">WAITLIST</h2>
+            <h1 class="title">Resourcify</h1>
+            <p class="description">
+                Be first in line to experience the future of resource management with Resourcify. Join our waitlist for exclusive access.
+            </p>
+            <form id="waitlistForm" class="form">
+                <input type="email" id="emailInput" placeholder="Your Email" class="email-input" required>
+                <button type="submit" class="submit-button">Join Waitlist</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const background = document.querySelector('.background');
+        const boxCount = 20 * 20; // 20x20 grid
+        for (let i = 0; i < boxCount; i++) {
+            const box = document.createElement('div');
+            box.classList.add('background-box');
+            background.appendChild(box);
+        }
+
+        const logo = document.querySelector('.logo');
+        const content = document.querySelector('.content');
+
+        // Animate logo and content using GSAP
+        gsap.fromTo(logo, 
+            { opacity: 0, y: -20 }, 
+            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+        );
+
+        gsap.fromTo(content, 
+            { opacity: 0, y: 20 }, 
+            { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.3 }
+        );
+
+        // Handle form submission
+        const form = document.getElementById('waitlistForm');
+        const emailInput = document.getElementById('emailInput');
+        const submit = form.querySelector('.submit-button');
+
+        submit.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default form submission
+            const emailValue = emailInput.value;
+
+            let ebody = `
+                <h1>Email: </h1>${emailValue}
+            `;
+
+            // Send email using SMTP.js
+            Email.send({
+                Host : "smtp.elasticemail.com",
+                Username: "adityaj0714@gmail.com",
+                Password: "D85A096F51BB3D9CE1B6D33EE1AE2740D96D",
+                To: 'adityaj0714@gmail.com',
+                From: "adityaj0714@gmail.com",
+                Subject: "New Waitlist Submission",
+                Body: ebody
+            }).then(
+                () => {
+                    // Redirect to signup.html immediately after successful submission
+                    window.location.href = 'signup.html';
+                }
+            ).catch(error => {
+                console.error('Error:', error);
+            });
+
+            // Add a simple animation for feedback
+            gsap.to(form, { 
+                scale: 1.05, 
+                duration: 0.2, 
+                yoyo: true, 
+                repeat: 1,
+                ease: "power2.inOut"
+            });
+        });
+    });
+    </script>
+</body>
+</html>
