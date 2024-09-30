@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resourcify Waitlist - Thank You</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            z-index: 1;
+        }
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzMzMyIgb3BhY2l0eT0iMC4yIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=');
+            opacity: 0.5;
+            z-index: 0;
+        }
+        .planet-curve {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 256px;
+            background: linear-gradient(to top, #111, transparent);
+            border-top-left-radius: 50% 100%;
+            border-top-right-radius: 50% 100%;
+            transform: scale(1.5);
+            z-index: 0;
+        }
+        .logo {
+            position: absolute;
+            top: 32px;
+            left: 32px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #ccc;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+        .checkmark {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-overlay"></div>
+    <div class="planet-curve"></div>
+    <svg class="logo" width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="container">
+        <svg class="checkmark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 4L12 14.01l-3-3" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h1>Thank You!</h1>
+        <p>You've successfully joined the Resourcify waitlist. We'll keep you updated on our progress.</p>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const email = localStorage.getItem('waitlistEmail');
+        if (email) {
+            const thankYouMessage = document.querySelector('p');
+            thankYouMessage.textContent = `Thank you for joining the Resourcify waitlist with email: ${email}. We'll keep you updated on our progress.`;
+            localStorage.removeItem('waitlistEmail'); // Clear the stored email
+        }
+    });
+    </script>
+</body>
+</html>
